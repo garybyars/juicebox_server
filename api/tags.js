@@ -1,0 +1,18 @@
+const express = require('express');
+const tagsRouter = express.Router();
+const { getAllTags } = require('../db');
+
+tagsRouter.use((req, res, next) => {
+  console.log("...a request is being made to /tags");
+
+  next();
+});
+
+tagsRouter.get('/', async (req, res) => {
+  const tags = await getAllTags();
+
+  res.send({
+    "tags": [tags]
+  });
+});
+module.exports = tagsRouter;
